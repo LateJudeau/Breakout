@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf220whf8fj1u"]
+
+[ext_resource type="Script" path="res://scenes/block/block.gd" id="1_pbr7y"]
+[ext_resource type="Texture2D" uid="uid://jx1s6emm27r7" path="res://art/block.png" id="1_qtbv5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35ap3"]
+size = Vector2(20, 10)
+
+[node name="Block" type="Area2D" groups=["block"]]
+scale = Vector2(2, 2)
+collision_layer = 2
+script = ExtResource("1_pbr7y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_35ap3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.152941, 1)
+texture = ExtResource("1_qtbv5")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-22, 0)
+target_position = Vector2(44, 0)
+collide_with_areas = true

@@ -1,0 +1,69 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpntl0o8l2tk8"]
+
+[ext_resource type="Script" path="res://scenes/arena.gd" id="1_rqtka"]
+[ext_resource type="Resource" uid="uid://bhydli7hp4r5t" path="res://custom_resources/normal.tres" id="2_ew8v7"]
+[ext_resource type="PackedScene" uid="uid://cfud7si3v0drb" path="res://scenes/wall.tscn" id="3_icmar"]
+[ext_resource type="PackedScene" uid="uid://dgregjbht40m" path="res://scenes/paddle/paddle.tscn" id="4_kwc8t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5tp2"]
+size = Vector2(687, 1213)
+
+[node name="Arena" type="Node2D" groups=["arena"]]
+script = ExtResource("1_rqtka")
+levels = ExtResource("2_ew8v7")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="Walls" groups=["side_wall"] instance=ExtResource("3_icmar")]
+position = Vector2(663, 92)
+
+[node name="Wall2" parent="Walls" groups=["side_wall"] instance=ExtResource("3_icmar")]
+position = Vector2(7, 92)
+
+[node name="Wall3" parent="Walls" groups=["top_wall"] instance=ExtResource("3_icmar")]
+position = Vector2(1018, 85)
+rotation = 1.5708
+
+[node name="ArenaArea" type="Area2D" parent="Walls"]
+collision_layer = 4
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/ArenaArea"]
+position = Vector2(333.5, 596.5)
+shape = SubResource("RectangleShape2D_o5tp2")
+
+[node name="Paddle" parent="." instance=ExtResource("4_kwc8t")]
+position = Vector2(388, 1130)
+
+[node name="BallSpawnVector" type="RayCast2D" parent="."]
+position = Vector2(24, 630)
+enabled = false
+target_position = Vector2(376, 517)
+collide_with_bodies = false
+
+[node name="BlockLines" type="Node2D" parent="."]
+position = Vector2(15, 150)
+
+[node name="Events" type="Node" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PointsLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 58
+text = "0"
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+text = "3"
+
+[connection signal="area_exited" from="Walls/ArenaArea" to="." method="_on_arena_area_exited"]
