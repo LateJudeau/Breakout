@@ -2,10 +2,8 @@ extends Node2D
 class_name Arena
 
 
-
+var score_sheet: ScoreSheet = preload("res://custom_resources/score_sheet.gd").new()
 @export var levels: Levels
-
-
 @onready var lives_label: Label = %LivesLabel
 @onready var points_label: Label = %PointsLabel
 @onready var arena_width: float = $"Walls/Wall".global_position.x
@@ -20,17 +18,21 @@ var player_lives: int = 3:
 		player_lives = value
 		lives_label.text = str(player_lives)
 		
+		
 var player_points: int = 0:
 	set(value):
 		player_points = value
 		points_label.text = str(player_points)
 		if BLOCK.amount_of_blocks < 1:
-			print("LEVEL WON! WOO! BABAY!")
+			await get_tree().create_timer(1).timeout
+			inizialize_level()
+
 
 
 func _ready() -> void:
 	inizialize_level()
 	spawn_ball()
+
 
 	
 func inizialize_level():
@@ -47,6 +49,7 @@ func inizialize_level():
 	
 func spawn_ball():
 	var ball: Ball = SIMPLE_BALL.instantiate()
+	await get_tree().create_timer(1).timeout
 	add_child(ball)
 	ball.global_position = ball_spawn_vector.global_position
 	ball.velocity_vector = ball_spawn_vector.target_position
@@ -62,5 +65,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_arena_area_exited(ball: Ball) -> void:
 	ball.queue_free()
 	player_lives += -1
-	await get_tree().create_timer(1).timeout
-	spawn_ball()
+	if player_lives > -1:
+		spawn_ball()
+	else:
+		print("Lost")
+
+

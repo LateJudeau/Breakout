@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbbyopb0vwmjj"]
+
+[ext_resource type="Texture2D" uid="uid://d00fouj37dttt" path="res://art/ball.png" id="1_hs8t7"]
+[ext_resource type="Script" path="res://scenes/ball/ball_follower.gd" id="2_xqjbx"]
+
+[node name="BallFollower" type="Sprite2D"]
+modulate = Color(0.501961, 1, 0.454902, 0.4)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_hs8t7")
+script = ExtResource("2_xqjbx")

@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Levels" load_steps=3 format=3 uid="uid://bhydli7hp4r5t"]
 
+[ext_resource type="Resource" uid="uid://b85gbarb0h40h" path="res://scenes/levels/test.tres" id="1_18tuo"]
 [ext_resource type="Script" path="res://custom_resources/levels.gd" id="1_gr6xv"]
-[ext_resource type="Resource" uid="uid://cw6mvo5evb0wp" path="res://scenes/levels/level_1.tres" id="1_vkveu"]
 
 [resource]
 script = ExtResource("1_gr6xv")
-levels = Array[Resource("res://custom_resources/level.gd")]([ExtResource("1_vkveu")])
+levels = Array[Resource("res://custom_resources/level.gd")]([ExtResource("1_18tuo")])

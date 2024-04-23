@@ -25,12 +25,17 @@ var velocity_vector: Vector2 = Vector2.UP:
 
 #func _process(delta: float) -> void:
 	#global_position = get_global_mouse_position()
-
-func _physics_process(delta: float) -> void:
+@onready var follower: Follower = get_tree().get_first_node_in_group("ball_follower")
+func _process(delta: float) -> void:
 	global_position += velocity_vector*speed*delta
 	ray_cast_2d.target_position = velocity_vector * speed * 2
+	follower.global_position = global_position/2
 	#global_position = get_global_mouse_position()
-	
+
+func _ready() -> void:
+	follower.follower_color = 1
+
+
 func top_wall_hit():
 	velocity_vector *= Vector2(1, -1)
 
@@ -52,6 +57,7 @@ func block_hit(area: Area2D):
 		#elif offset.x > 11 or offset.x < -11:
 	elif offset.y > 2 or offset.y < -2:
 		velocity_vector *= Vector2(1, -1)
+	follower.follower_color = area.block_points
 	speed = area.block_points
 	arena.player_points += area.block_points
 

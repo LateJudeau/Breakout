@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=667
 window/size/viewport_height=1152
-window/stretch/aspect="expand"
 
 [input]
 
