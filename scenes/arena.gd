@@ -2,8 +2,12 @@ extends Node2D
 class_name Arena
 
 
+var player_name: String = "Write your name"
+@onready var score_menu: ScoreMenu = %ScoreMenu
 var score_sheet: ScoreSheet = preload("res://custom_resources/score_sheet.gd").new()
 @export var levels: Levels
+@onready var submit_score_container: HBoxContainer = $CanvasLayer/SubmitScoreContainer
+@onready var sub_viewport: SubViewport = $SubViewportContainer/SubViewport
 @onready var lives_label: Label = %LivesLabel
 @onready var points_label: Label = %PointsLabel
 @onready var arena_width: float = $"Walls/Wall".global_position.x
@@ -13,7 +17,7 @@ const SIMPLE_BALL = preload("res://scenes/ball/simple_ball.tscn")
 const BLOCK_LINE = preload("res://scenes/block/block_line.tscn")
 var BLOCK = preload("res://scenes/block/block.tscn").instantiate()
 var block_amount: int = 16
-var player_lives: int = 3:
+var player_lives: int = 2:
 	set(value):
 		player_lives = value
 		lives_label.text = str(player_lives)
@@ -30,6 +34,8 @@ var player_points: int = 0:
 
 
 func _ready() -> void:
+	score_sheet.load_scores()
+	score_menu.add_scores(score_sheet)
 	inizialize_level()
 	spawn_ball()
 
@@ -57,7 +63,8 @@ func spawn_ball():
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_released("debug"):
 		print(BLOCK.amount_of_blocks)
-		spawn_ball()
+		score_sheet.scores_array = []
+		score_sheet.save_scores()
 
 
 
@@ -68,6 +75,41 @@ func _on_arena_area_exited(ball: Ball) -> void:
 	if player_lives > -1:
 		spawn_ball()
 	else:
-		print("Lost")
+		game_over()
+		
+func game_over():
+	sub_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	sub_viewport.get_parent().hide()
+	levels.current_level = 0
+	await save_prompt()
+	player_points = 0
+	player_lives = 2
+	clear_level()
+	call_deferred("inizialize_level")
+	sub_viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_NEVER
+	sub_viewport.get_parent().show()
+	spawn_ball()
+
+	
+func save_prompt():
+	submit_score_container.show()
+	score_menu.show()
+	await submit_score_container.score_submit
+	score_sheet.scores_array.append({"name": player_name, "score": player_points})
+	submit_score_container.hide()
+	score_sheet.save_scores()
+	score_menu.add_scores(score_sheet)
+	await get_tree().create_timer(3).timeout
+	score_menu.hide()
+	
+func clear_level():
+	for child in block_lines.get_children():
+		child.queue_free()
 
 
+
+
+
+
+func _on_submit_score_container_score_submit(passed_name) -> void:
+	player_name = passed_name

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Level" load_steps=2 format=3 uid="uid://bimla02tmawo7"]
+
+[ext_resource type="Script" path="res://custom_resources/level.gd" id="1_iv6nx"]
+
+[resource]
+script = ExtResource("1_iv6nx")
+block_lines = Array[int]([4, 2, 4, 2])

@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="Levels" load_steps=3 format=3 uid="uid://bhydli7hp4r5t"]
+[gd_resource type="Resource" script_class="Levels" load_steps=6 format=3 uid="uid://bhydli7hp4r5t"]
 
-[ext_resource type="Resource" uid="uid://b85gbarb0h40h" path="res://scenes/levels/test.tres" id="1_18tuo"]
 [ext_resource type="Script" path="res://custom_resources/levels.gd" id="1_gr6xv"]
+[ext_resource type="Resource" uid="uid://cw6mvo5evb0wp" path="res://scenes/levels/level_1.tres" id="1_vuo5n"]
+[ext_resource type="Resource" uid="uid://dgb2ky75njmje" path="res://scenes/levels/level_2.tres" id="2_niod5"]
+[ext_resource type="Resource" uid="uid://dmgvya5ogj7lp" path="res://scenes/levels/level_3.tres" id="3_rsxgt"]
+[ext_resource type="Resource" uid="uid://bimla02tmawo7" path="res://scenes/levels/level_4.tres" id="4_uraxf"]
 
 [resource]
 script = ExtResource("1_gr6xv")
-levels = Array[Resource("res://custom_resources/level.gd")]([ExtResource("1_18tuo")])
+levels = Array[Resource("res://custom_resources/level.gd")]([ExtResource("1_vuo5n"), ExtResource("2_niod5"), ExtResource("3_rsxgt"), ExtResource("4_uraxf")])

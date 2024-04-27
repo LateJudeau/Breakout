@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://ddln5a65pw4wh"]
+[gd_scene load_steps=3 format=3 uid="uid://ddln5a65pw4wh"]
+
+[ext_resource type="Script" path="res://scenes/UI/score_menu.gd" id="1_66tjs"]
+[ext_resource type="PackedScene" uid="uid://dde1ytog1d2d" path="res://scenes/UI/score_labels.tscn" id="2_wsg4c"]
 
 [node name="ScoreMenu" type="Control"]
 layout_mode = 3
@@ -7,17 +10,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_66tjs")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -300.0
+offset_top = -11.5
+offset_right = 300.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
+
+[node name="ScoreLabels" parent="VBoxContainer" instance=ExtResource("2_wsg4c")]
+layout_mode = 2
+bold_text = true

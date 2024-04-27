@@ -26,7 +26,8 @@ var velocity_vector: Vector2 = Vector2.UP:
 #func _process(delta: float) -> void:
 	#global_position = get_global_mouse_position()
 @onready var follower: Follower = get_tree().get_first_node_in_group("ball_follower")
-func _process(delta: float) -> void:
+
+func _physics_process(delta: float) -> void:
 	global_position += velocity_vector*speed*delta
 	ray_cast_2d.target_position = velocity_vector * speed * 2
 	follower.global_position = global_position/2
@@ -49,6 +50,8 @@ func paddle_hit(body: Node2D):
 	angle = remap(angle,0,30,0,0.5)
 	velocity_vector *= Vector2(1,-1)
 	velocity_vector += Vector2(angle*-1,0)
+	velocity_vector.x = clampf(velocity_vector.x,-0.6, 0.6)
+
 	
 func block_hit(area: Area2D):
 	var offset: Vector2 = area.global_position - global_position

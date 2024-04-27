@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_e6471")
-block_lines = Array[int]([4, 3, 2, 2, 1, 1])
+block_lines = Array[int]([4, 3, 3, 2, 1])
