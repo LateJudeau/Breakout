@@ -17,3 +17,8 @@ func add_blocks(amount: int, type: int):
 		block_position += Vector2(40,0)
 		
 
+
+
+func _on_child_order_changed() -> void:
+	if get_child_count() < 1:
+		queue_free()

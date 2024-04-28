@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpntl0o8l2tk8"]
+[gd_scene load_steps=11 format=3 uid="uid://bpntl0o8l2tk8"]
 
 [ext_resource type="Script" path="res://scenes/arena.gd" id="1_d0wg2"]
 [ext_resource type="Resource" uid="uid://bhydli7hp4r5t" path="res://custom_resources/normal.tres" id="2_g6vfp"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dbbyopb0vwmjj" path="res://scenes/ball/ball_follower.tscn" id="5_jql2h"]
 [ext_resource type="Script" path="res://scenes/UI/submit_score_container.gd" id="6_ghxqo"]
 [ext_resource type="PackedScene" uid="uid://ddln5a65pw4wh" path="res://scenes/UI/score_menu.tscn" id="6_ye35s"]
+[ext_resource type="PackedScene" uid="uid://d2xbyhclfh1a8" path="res://scenes/UI/lives_indicator.tscn" id="8_wtmtn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5tp2"]
 size = Vector2(687, 1213)
@@ -18,6 +19,7 @@ glow_intensity = 1.7
 glow_bloom = 1.0
 
 [node name="Arena" type="Node2D" groups=["arena"]]
+process_mode = 3
 script = ExtResource("1_d0wg2")
 levels = ExtResource("2_g6vfp")
 
@@ -96,12 +98,6 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 58
 text = "0"
 
-[node name="LivesLabel" type="Label" parent="CanvasLayer"]
-unique_name_in_owner = true
-offset_right = 40.0
-offset_bottom = 23.0
-text = "3"
-
 [node name="SubmitScoreContainer" type="HBoxContainer" parent="CanvasLayer"]
 visible = false
 custom_minimum_size = Vector2(0, 40)
@@ -145,6 +141,9 @@ visible = false
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="LivesIndicator" parent="CanvasLayer" instance=ExtResource("8_wtmtn")]
+unique_name_in_owner = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_oav6s")

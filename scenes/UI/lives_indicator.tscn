@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2xbyhclfh1a8"]
+
+[ext_resource type="Script" path="res://scenes/UI/lives_indicator.gd" id="1_ebw76"]
+
+[node name="LivesIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+script = ExtResource("1_ebw76")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
