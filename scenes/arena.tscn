@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpntl0o8l2tk8"]
+[gd_scene load_steps=16 format=3 uid="uid://bpntl0o8l2tk8"]
 
 [ext_resource type="Script" path="res://scenes/arena.gd" id="1_d0wg2"]
 [ext_resource type="Resource" uid="uid://bhydli7hp4r5t" path="res://custom_resources/normal.tres" id="2_g6vfp"]
@@ -8,6 +8,11 @@
 [ext_resource type="Script" path="res://scenes/UI/submit_score_container.gd" id="6_ghxqo"]
 [ext_resource type="PackedScene" uid="uid://ddln5a65pw4wh" path="res://scenes/UI/score_menu.tscn" id="6_ye35s"]
 [ext_resource type="PackedScene" uid="uid://d2xbyhclfh1a8" path="res://scenes/UI/lives_indicator.tscn" id="8_wtmtn"]
+[ext_resource type="Script" path="res://scenes/audio_player.gd" id="9_ad6yk"]
+[ext_resource type="AudioStream" uid="uid://muiucq0t10i8" path="res://sounds/jump.wav" id="10_v723m"]
+[ext_resource type="AudioStream" uid="uid://70sx7wv7jf8l" path="res://sounds/hurt.wav" id="11_r4glb"]
+[ext_resource type="AudioStream" uid="uid://cox6ug5oftlup" path="res://sounds/coin.wav" id="12_divp2"]
+[ext_resource type="AudioStream" uid="uid://mw4lba36vku6" path="res://sounds/power_up.wav" id="13_2oa4n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o5tp2"]
 size = Vector2(687, 1213)
@@ -147,6 +152,29 @@ unique_name_in_owner = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_oav6s")
+
+[node name="Audio" type="Node" parent="." groups=["audio_player"]]
+script = ExtResource("9_ad6yk")
+
+[node name="StartSound" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_v723m")
+bus = &"SFX"
+
+[node name="BlockDestroyed" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("11_r4glb")
+pitch_scale = 2.0
+bus = &"SFX"
+
+[node name="WallHit" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_divp2")
+volume_db = 5.0
+pitch_scale = 3.0
+bus = &"SFX"
+
+[node name="BallOut" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("13_2oa4n")
+pitch_scale = 0.5
+bus = &"SFX"
 
 [connection signal="area_exited" from="Walls/ArenaArea" to="." method="_on_arena_area_exited"]
 [connection signal="score_submit" from="CanvasLayer/SubmitScoreContainer" to="." method="_on_submit_score_container_score_submit"]

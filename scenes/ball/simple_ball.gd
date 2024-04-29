@@ -1,6 +1,7 @@
 extends Area2D
 class_name Ball
 
+@onready var audio_player: Audio = get_tree().get_first_node_in_group("audio_player")
 @onready var arena: Arena = get_tree().get_first_node_in_group("arena")
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 @export var max_angle: float = 0.5
@@ -27,6 +28,10 @@ var velocity_vector: Vector2 = Vector2.UP:
 	#global_position = get_global_mouse_position()
 @onready var follower: Follower = get_tree().get_first_node_in_group("ball_follower")
 
+func _exit_tree() -> void:
+	audio_player.play_ball_out()
+
+
 func _physics_process(delta: float) -> void:
 	global_position += velocity_vector*speed*delta
 	ray_cast_2d.target_position = velocity_vector * speed * 2
@@ -35,16 +40,19 @@ func _physics_process(delta: float) -> void:
 
 func _ready() -> void:
 	follower.follower_color = 1
-
+	audio_player.play_new_ball()
 
 func top_wall_hit():
+	audio_player.play_wall_hit()
 	velocity_vector *= Vector2(1, -1)
 
 func side_wall_hit():
+	audio_player.play_wall_hit()
 	velocity_vector *= Vector2(-1, 1)
 	
 
 func paddle_hit(body: Node2D):
+	audio_player.play_paddle_hit()
 	#var angle = get_angle_to(body.global_position)
 	var angle = body.global_position.x - global_position.x
 	angle = remap(angle,0,30,0,0.5)
@@ -54,6 +62,7 @@ func paddle_hit(body: Node2D):
 
 	
 func block_hit(area: Area2D):
+	audio_player.play_block_hit()
 	var offset: Vector2 = area.global_position - global_position
 	if area.hit():
 		velocity_vector *= Vector2(-1, 1)
